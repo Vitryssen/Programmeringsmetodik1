@@ -1,0 +1,35 @@
+INT_BUFFER
+--------------------------------------------------------------------------------------------
+Kontrollera med hjälp av breakpoints vilka konstruerare och destruerare som körs:
+int_buffer::int_buffer(size_t size) : bufferSize(size), valuePtr(new int[size]) Konstruktorn
+{
+
+}
+int_buffer::~int_buffer() Dekonstruktorn
+{
+	delete[] valuePtr;
+}
+
+Kontrollera med debuggern att rätt version av begin och end anropas i de båda fallen:
+int* int_buffer::begin()
+{
+	return valuePtr;
+}
+
+int* int_buffer::end()
+{
+	return valuePtr+bufferSize;
+}
+Kan man anv ̈anda range-for syntaxen?:
+Ja, fungerar att både tilldela värde och skriva ut det
+int count = 1;
+for (auto e : buf) {
+	e = count;
+	count++;
+	std::cout << e << "\n";
+}
+--------------------------------------------------------------------------------------------
+INT_SORTED
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
