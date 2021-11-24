@@ -23,7 +23,7 @@ void f(int_buffer buf) {
 	}*/
 }
 int main() {
-	const int size = 400000;
+	const int size = 100000;
 	int tmp[size]{};
 	for (int i = 0; i < size; i++) {
 		tmp[i] = rand();
@@ -41,7 +41,7 @@ void time_selection_sort(int* arr, const int size) {
 }
 void time_regular_merge(int* arr, const int size) {
 	auto merge_start = std::chrono::steady_clock::now();
-	int_sorted(arr, size);
+	auto sorted = int_sorted(arr, size);
 	auto merge_end = std::chrono::steady_clock::now();
 	auto merge_total = std::chrono::duration_cast<std::chrono::milliseconds>(merge_end - merge_start);
 	std::cout << "Time taken for merge on " << size << " elements: " << merge_total.count() << std::endl;
@@ -54,9 +54,12 @@ void time_std_sort(int* arr, const int size) {
 	std::cout << "Time taken for std::sort on " << size << " elements: " << std_sort_total.count() << std::endl;
 }
 void compare_times(int* arr, const int size) {
-	time_selection_sort(arr, size);
+	//time_selection_sort(arr, size);
 	time_regular_merge(arr, size);
-	time_std_sort(arr, size);
 	auto test = int_buffer(arr, size);
-	std::cout << " final " << test.is_sorted() << std::endl;
+	std::cout << "Sorted before: " << test.is_sorted() << std::endl;
+	time_std_sort(arr, size);
+	test = int_buffer(arr, size);
+	std::cout << "Sorted after: " << test.is_sorted() << std::endl;
+	
 }

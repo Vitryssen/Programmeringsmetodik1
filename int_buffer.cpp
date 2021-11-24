@@ -4,7 +4,7 @@
 #ifndef INT_BUFFER
 #define INT_BUFFER
 #endif 
-void int_buffer::swap(int_buffer buffer)
+void int_buffer::swap(int_buffer& buffer)
 {
 	std::swap(buffer.valuePtr, valuePtr);
 	std::swap(buffer.bufferSize, bufferSize);
@@ -23,12 +23,12 @@ int_buffer::int_buffer(size_t size) : bufferSize(size), valuePtr(new int[size])
 
 }
 
-int_buffer::int_buffer(const int* source, size_t size) : bufferSize(size), valuePtr(new int[size])
+int_buffer::int_buffer(const int* source, size_t size) : int_buffer(size)
 {
 	std::copy(source, source + size, begin());
 }
 
-int_buffer::int_buffer(const int_buffer& rhs) : bufferSize(rhs.size()), valuePtr(new int[rhs.size()])
+int_buffer::int_buffer(const int_buffer& rhs) : int_buffer(rhs.begin(), rhs.size())
 {
 	std::copy(rhs.begin(), rhs.end(), begin());
 }
@@ -40,7 +40,8 @@ int_buffer::int_buffer(int_buffer&& rhs) noexcept : bufferSize(0), valuePtr(null
 
 int_buffer& int_buffer::operator=(const int_buffer& rhs) noexcept
 {
-	swap(rhs);
+	int_buffer copy = int_buffer(rhs);
+	swap(copy);
 	return *this;
 }
 

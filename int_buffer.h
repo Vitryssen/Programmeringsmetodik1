@@ -5,7 +5,7 @@ class int_buffer {
 	private:
 		int bufferSize;
 		int* valuePtr;
-		void swap(int_buffer buffer);
+		void swap(int_buffer& buffer);
 	public:
 		/// <summary>
 		///	Creates an int buffer with the given size

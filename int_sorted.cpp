@@ -3,11 +3,7 @@
 #include <cstddef>
 #include <iterator>
 #include <iostream>
-#pragma once
-#ifndef INT_SORTED
-#define INT_SORTED
 
-#endif // !INT_SORTED
 int_sorted::int_sorted(const int* source, size_t size) : buffer(int_buffer(source, size))
 {
 	if (size > 1) {
